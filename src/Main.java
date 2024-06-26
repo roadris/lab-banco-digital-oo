@@ -1,18 +1,40 @@
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class Main {
 
-	public static void main(String[] args) {
-		Cliente venilton = new Cliente();
-		venilton.setNome("Venilton");
+	public static void main(String[] args) throws ParseException {
+		//atributos
+		Cliente novoClientePoupanca = new Cliente();
+		Cliente novoClienteCorrente = new Cliente();
+		Banco novoBanco = new Banco("Bank GFT");
+		Scanner teclado = new Scanner(System.in);
+				
+		System.out.println("\nCRIAR CONTA CORRENTE");
+		System.out.print("\nInforme o nome da pessoa: ");
+		novoClienteCorrente.setNome(teclado.nextLine());
+		Conta novaContaCorrente = new ContaCorrente(novoClienteCorrente);
+		novoBanco.adicionarContaCorrentes(novaContaCorrente);
 		
-		Conta cc = new ContaCorrente(venilton);
-		Conta poupanca = new ContaPoupanca(venilton);
+		System.out.println("\nCRIAR CONTA POUPANÇA");
+		System.out.print("\nInforme o nome da pessoa: ");
+		novoClientePoupanca.setNome(teclado.nextLine());
+		Conta novaContaPoupanca = new ContaCorrente(novoClientePoupanca);
+		novoBanco.adicionarContaPoupanca(novaContaPoupanca);
 
-		cc.depositar(100);
-		cc.transferir(100, poupanca);
+		System.out.println("\nDigite o valor deposito");
+		novaContaCorrente.depositar(teclado.nextDouble());
+		System.out.println("\nDigite o valor que deseja transferir para a conta poupança");
+		novaContaCorrente.transferir(teclado.nextDouble(), novaContaPoupanca);
 		
-		cc.imprimirExtrato();
-		poupanca.imprimirExtrato();
+		novaContaCorrente.imprimirExtrato();
+		novaContaPoupanca.imprimirExtrato();
+
+		
+		novoBanco.exibirContasPoupanca();
+		novoBanco.exibirContasCorrente();
 	}
 
 }

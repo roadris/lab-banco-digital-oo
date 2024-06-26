@@ -31,6 +31,7 @@ public abstract class Conta implements IConta {
 		contaDestino.depositar(valor);
 	}
 
+	
 	public int getAgencia() {
 		return agencia;
 	}
@@ -41,6 +42,10 @@ public abstract class Conta implements IConta {
 
 	public double getSaldo() {
 		return saldo;
+	}
+
+	public void setSaldo(double saldo) {
+		this.saldo = saldo;
 	}
 
 	protected void imprimirInfosComuns() {
